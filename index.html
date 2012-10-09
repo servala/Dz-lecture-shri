@@ -1,0 +1,364 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>Шри лекции</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <style >
+        html{
+            overflow-y: scroll;
+            height: 100%;
+        }
+        body {
+            padding: 0;
+            margin: 0;
+            font-family: Tahoma, Verdana, sans-serif;
+            font-size: 11px;
+            height: 100%;
+            color: black;
+        }
+        table{
+            border: 0;
+            border-collapse: collapse;
+            background-color: #ffffff;
+            height: auto;
+            height: 100%;
+        }
+        table td {
+            padding: 0px;
+            font-family: Verdana, sans-serif;
+            font-size: 11px;
+        }
+        .clear{ clear:both;}
+
+        .link{ border-bottom:1px dotted black; cursor: pointer;}
+        .link:hover { border-bottom:1px dotted #888 !important;}
+
+        .b-page_main_tb { width: 800px; margin: 0 auto; height: 570px; border: 1px solid red;}
+        .b-page_main_tb_l { width: 520px; vertical-align: top; text-align: left;padding: 15px 0 0 30px;}
+        .b-page_main_tb_r { width: 235px; vertical-align: top; text-align: left; background-color: #d6f3f8; padding: 15px 0 0 15px; }
+        .w320{ width: 320px;}
+        <!-- -->
+        .b-day-title{ color: #515151; font-size: 12px}
+        .b-day-title span{ font-size: 18px; color: black; padding-right: 5px;}
+
+        .e-day-list{padding-left: 40px; color: #949494;}
+        .e-day-list p { margin: 5px 0 0 0;font-size: 14px; cursor: pointer;}
+        .e-day-list span{ margin-left: 5px; color: black;}
+
+        .e-lector-list{ color: red; }
+        .e-lector-list p { margin: 5px 0 0 0;font-size: 14px;color: red;}
+        .e-lector-list span.link{ border-bottom:1px dotted red}
+
+    
+        <!-- -->
+        .b-lecture{
+            margin-top: 50px; font-size: 14px;
+        }
+        .b-lecture-title{
+            font-size: 20px;
+        }
+        .b-lecture-autor{ color: red; margin-top: 3px;}
+        .b-lecture-content{ padding: 25px 10px 0 40px;}
+        <!-- -->
+        .calendar {
+            margin: 10px 0 0 8px;
+            clear: both;
+            width: 216px;
+        }
+        .calendar div{
+            float: left;
+            position: relative;
+            width: 27px;
+            height: 18px;
+            background-color: white;
+            line-height: 18px;
+            text-align: right;
+            padding: 0 3px 0 0;
+            border: 0;
+            border-right: 1px solid #ecebeb;
+            border-bottom: 1px solid #ecebeb; 
+        }
+        .calendar div.month {
+            position: relative;
+            width: 217px;
+            border: 0;
+            border-radius: 0 5px 0 0;
+            height: 40px;
+            padding: 0;
+            background: -webkit-linear-gradient(top, white, #ecebeb);
+        }
+        .calendar div.month span {
+            position: absolute;
+            left: 0;
+            line-height: 25px;
+            font-size: 18px;
+        }
+        .calendar div.month span.letter {
+            left: -15px;
+            width: 14px;
+            color: red;
+        }
+        .calendar div.month a {
+            position: absolute;
+            width: 20px;
+            color: #848383;
+            cursor: pointer;
+        }
+        .calendar div.month a:hover {
+            color: red;
+        }
+        .calendar div.month a#mon_p {
+            right: 7px;
+            top: 5px;
+        }
+        .calendar div.month a#mon_n {
+            right: 20px;
+            top: 5px;
+        }
+        .calendar div.sunday {
+            border-right: 0 !important;
+        }
+        .calendar div.angle {
+            border-radius: 0 0 0 5px;
+        }
+        .calendar div.last {
+            border-radius: 0 0 5px;
+        }
+        .calendar div.empty {
+            background-color: #faf9f9;
+        }
+        .calendar div.current {
+            background: #848383;
+            color: white;
+        }
+        .calendar div.week-day {
+            background: transparent;
+            width: 28px;
+            border: 0;
+            margin: 23px 0 0;
+        }
+        .calendar div.week-day.sunday {
+            width: 27px;
+        }
+        .calendar div.week-day.red {
+            color: red;
+        }
+        .calendar div.mark {
+            width: 0;
+            height: 0;
+            position: absolute;
+            top: 0;
+            left: 0;
+            margin: 0;
+            padding: 0;
+            border: 0;
+        }
+        .calendar div.orange {
+            border-left: 6px solid orange; 
+            border-bottom: 6px solid transparent;
+        }
+        .calendar div.green {
+            border-left: 6px solid green; 
+            border-bottom: 6px solid transparent;
+        }
+        .calendar div.yellow {
+            border-left: 6px solid yellow; 
+            border-bottom: 6px solid transparent;
+        }
+        <!-- -->
+        <!-- --> <!-- -->
+        <!-- -->
+        <!-- -->
+        <!-- -->
+
+    </style>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.8.1.js"></script>
+    <script>
+        $( document ).ready( function(){
+        var week_days = {
+            1: 'пн',
+            2: 'вт',
+            3: 'ср',
+            4: 'чт',
+            5: 'пт',
+            6: 'сб',
+            7: 'вс'
+        },
+        months = {
+            0: 'Январь',
+            1: 'Февраль',
+            2: 'Март',
+            3: 'Апрель',
+            4: 'Май',
+            5: 'Июнь',
+            6: 'Июль',
+            7: 'Август',
+            8: 'Сентябрь',
+            9: 'Октябрь',
+            10: 'Ноябрь',
+            11: 'Декабрь'
+        },
+        date_worker = {
+            now: new Date(),
+            get_first_day: function(m, y) {
+                return new Date( y, m, 1 );
+            },
+            get_last_day: function(m, y) {
+                var d = this.get_first_day( m + 1, y );
+                d.setDate( 0 );
+                return d;
+            },
+            get_week_day: function(date) {
+                var day = date.getDay();
+                return day === 0 ? 7 : day;
+            },
+            get_now_day: function(){
+                return new Date(this.now);
+            },
+            is_current_month: function(m, y){
+                return m === this.now.getMonth() && y === this.now.getFullYear();
+            }
+        };
+
+        var cur_date = date_worker.get_now_day();
+        var cur_year = cur_date.getFullYear();
+        var cur_month = cur_date.getMonth();
+
+        function setMark( el, color ) {
+            $( '<div></div>' ).addClass( 'mark' ).addClass( color ).appendTo( el );
+            $( el ).css( 'cursor', 'pointer' );
+        }
+
+        function drawCalendar( m, y ) {
+            var cur_start = date_worker.get_first_day( m, y );
+            cur_month = cur_start.getMonth();
+            cur_year = cur_start.getFullYear();
+            var cur_end = date_worker.get_last_day( cur_month, cur_year );
+            var cur_start_wday = date_worker.get_week_day( cur_start );
+            var cur_end_wday = date_worker.get_week_day( cur_end );
+
+            var is_show_date = date_worker.is_current_month( cur_month, cur_year );
+            var show_date = cur_date.getDate();
+
+            var cal = $( '.calendar' ).html('');
+            var mon = $( '<div></div>' ).addClass( 'month' ).appendTo( cal );
+            $( '<a></a>' ).attr('id', 'mon_p' ).text('▶').appendTo( mon );
+            $( '<a></a>' ).attr('id', 'mon_n' ).text('◀').appendTo( mon );
+            $( '<span></span>' ).addClass( 'letter' ).text( months[ cur_month ].charAt(0)).appendTo( mon );
+            $( '<span></span>' ).text( months[ cur_month ].substr( 1 ) + ' ' + cur_year ).appendTo( mon );
+            for ( var i = 1 ; i < 8 ; i++ ){
+                var div = $('<div></div>').addClass('week-day').text( week_days[ i ]);
+                if ( i === 7 ){
+                    div.addClass( 'sunday');
+                }
+                if( i > 5 ){
+                    div.addClass( 'red' );
+                }
+                mon.append( div );
+            }
+            for ( var i = 1 ; i < cur_start_wday ; i++ ){
+                var div = $( '<div></div>' ).addClass( 'empty' );
+                cal.append( div );
+            }
+            for( var i = 1, l = cur_end.getDate() ; i <= l ; i++ ){
+                var mod7 = ( i - 1 + cur_start_wday ) % 7;
+                var div = $( '<div></div>' ).attr( 'id', 'd_' + i ).text( i );
+                if ( mod7 === 1 && ( i + 7 >= l )){
+                    div.addClass( 'angle' );
+                } else if( mod7 === 0 ){
+                    div.addClass( 'sunday' );
+                    if ( i === l ){
+                        div.addClass( 'last' );
+                    }
+                }
+                if( is_show_date && i === show_date ){
+                    div.addClass( 'current' );
+                }
+                cal.append( div );
+            }
+            for( var i = cur_end_wday + 1 ; i < 8; i++ ){
+                var div = $( '<div></div>' ).addClass( 'empty' );
+                if ( i === 7 ){
+                    div.addClass( 'last' ).addClass( 'sunday' );
+                }
+                cal.append( div );
+            }
+
+            setMark( $('#d_3').get(0), 'green' );
+            setMark( $('#d_4').get(0), 'orange' );
+            setMark( $('#d_6').get(0), 'yellow' );
+        }
+        drawCalendar( cur_month, cur_year );
+        /*var week_day = new Date( 2012, (10 - 1), 1 ).getDay();
+
+        var tb = $( '<table></table>' )
+        td.append( '<tr></tr>' )
+        var sum = 31;
+        for ( i = 1; i<=sum; i++ ){*/
+
+
+        //}
+            $( '#mon_p' ).live( 'click', function(){
+                drawCalendar( cur_month + 1, cur_year );
+            });
+            $( '#mon_n' ).live( 'click', function(){
+                drawCalendar( cur_month - 1, cur_year );
+            });
+        });
+    </script>
+
+</head>
+<body>
+      <div class="b-page">
+            <table class="b-page_main_tb">
+                <tr>
+                   <td class="b-page_main_tb_l">
+                        <div class="b-day">
+                            <div class="b-day-title">
+                               <span>18 сентября 2012</span> вторник
+                            </div>
+                            <table>
+                                 <tr>
+                                     <td class="w320">
+                                         <div class="e-day-list">
+                                             <p>12:00<span>Общий цикл разработки</span></p>
+                                             <p>12:00<span class="link">Task Tracker, Wiki</span></p>
+                                        </div>
+                                     </td>
+                                     <td>
+                                         <div class="e-lector-list">
+                                             <p><span>Андрей Трушин</span></p>
+                                             <p><span class="link">Северьянова Марина</span></p>
+                                         </div>
+                                     </td>
+                                 </tr>
+                            </table>
+                        </div>
+                       <div class="b-lecture">
+                           <div class="b-lecture-title">Лекция «Общий цикл разработки»</div>
+                           <div class="b-lecture-autor">Мишаня Трошев </div>
+                           <div class="b-lecture-content">
+                               Всем привет. Школу мы проводим впервые, поэтому хотим, чтобы не	только мы помогали вам развиваться, но и наоборот. Мы планируем по	каждой лекции собирать ваши замечания, понять понравился ли вам	рассказ, как вы оцениваете лекторов. В опросе будут чекбоксы, но	хотелось бы увидеть и развернутые ответы в комментариях.
+                               <br/>
+                               <br/>
+                               Итак, первая лекция — «Общий цикл разработки»,	лектор Миша Трошев (mishanga).
+                               Презентация лекции: http://yadi.sk/d/VDsJ4ZUBiq6u
+                           </div>
+                       </div>
+                   </td>
+                    <td class="b-page_main_tb_r">
+                        <div class="b-search">
+                            <form method="get" action="http://yandex.ru/yandsearch" target="_blank">
+                                <input type="text" name="text" />
+                                <input class="e-button" type="image" src="img/lupa.gif" />
+                            </form>
+                            <div class="calendar">
+                            <div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+      </div>
+</body>
+</html>
