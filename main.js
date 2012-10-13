@@ -1,12 +1,17 @@
 $( document ).ready( function(){
     drawCalendar( cur_month, cur_year );
 });
+function toLS( data ){
+    localStorage.calendar = JSON.stringify( data );
+}
+function fromLS(){
+    if ( !localStorage.calendar ){
+        toLS( calendar );
+    }
+    return JSON.parse( localStorage.calendar );
+}
 
-    //if ( !localStorage.calendar ){
-    localStorage.calendar = JSON.stringify( calendar );
-    // }
-
-    var data = JSON.parse( localStorage.calendar );
+    var data = fromLS();
     var lectures = data.years[2012].months[8].days;
     var flag = true;
 
@@ -34,8 +39,8 @@ $( document ).ready( function(){
         unpack: function( s ){
             var a = s.split(' '), b = a[ 0 ].split( '-' );
             return {
-                d: b[ 2 ],
-                m: b[ 1 ],
+                d: parseInt( b[ 2 ], 10 ),
+                m: parseInt( b[ 1 ], 10 ),
                 y: b[ 0 ],
                 time: a[ 1 ],
                 word: a[ 2 ]
@@ -73,41 +78,41 @@ $( document ).ready( function(){
         6: [ 'сб','суббота' ],
         7: [ 'вс', 'воскресенье']
     },
-        months = {
-            0:  [ 'Январь','января' ],
-            1:  [ 'Февраль','февраля' ],
-            2:  [ 'Март','марта' ],
-            3:  [ 'Апрель','апреля' ],
-            4:  [ 'Май', 'мая' ],
-            5:  [ 'Июнь','июня' ],
-            6:  [ 'Июль','июля' ],
-            7:  [ 'Август','августа' ],
-            8:  [ 'Сентябрь','сентября' ],
-            9:  [ 'Октябрь','октября' ],
-            10: [ 'Ноябрь','ноября' ],
-            11: [ 'Декабрь','декабря' ]
+    months = {
+        0:  [ 'Январь','января' ],
+        1:  [ 'Февраль','февраля' ],
+        2:  [ 'Март','марта' ],
+        3:  [ 'Апрель','апреля' ],
+        4:  [ 'Май', 'мая' ],
+        5:  [ 'Июнь','июня' ],
+        6:  [ 'Июль','июля' ],
+        7:  [ 'Август','августа' ],
+        8:  [ 'Сентябрь','сентября' ],
+        9:  [ 'Октябрь','октября' ],
+        10: [ 'Ноябрь','ноября' ],
+        11: [ 'Декабрь','декабря' ]
+    },
+    date_worker = {
+        now: new Date(),
+        get_first_day: function(m, y) {
+            return new Date( y, m, 1 );
         },
-        date_worker = {
-            now: new Date(),
-            get_first_day: function(m, y) {
-                return new Date( y, m, 1 );
-            },
-            get_last_day: function(m, y) {
-                var d = this.get_first_day( m + 1, y );
-                d.setDate( 0 );
-                return d;
-            },
-            get_week_day: function(date) {
-                var day = date.getDay();
-                return day === 0 ? 7 : day;
-            },
-            get_now_day: function(){
-                return new Date(this.now);
-            },
-            is_current_month: function(m, y){
-                return m === this.now.getMonth() && y === this.now.getFullYear();
-            }
-        };
+        get_last_day: function(m, y) {
+            var d = this.get_first_day( m + 1, y );
+            d.setDate( 0 );
+            return d;
+        },
+        get_week_day: function(date) {
+            var day = date.getDay();
+            return day === 0 ? 7 : day;
+        },
+        get_now_day: function(){
+            return new Date(this.now);
+        },
+        is_current_month: function(m, y){
+            return m === this.now.getMonth() && y === this.now.getFullYear();
+        }
+    };
 
     var cur_date = date_worker.get_now_day();
     var cur_year = cur_date.getFullYear();
@@ -155,7 +160,7 @@ $( document ).ready( function(){
         for( var i = 1, l = cur_end.getDate() ; i <= l ; i++ ){
 
             var mod7 = ( i - 1 + cur_start_wday ) % 7;
-            var div = $( '<div></div>' ).attr( 'id', 'd_' + i ).text( i );
+            var div = $( '<div></div>' ).attr( 'id', 'd_' + i + '_' + cur_month + '_' + cur_year ).text( i );
             if ( mod7 === 1 && ( i + 7 >= l )){
                 div.addClass( 'angle' );
             } else if( mod7 === 0 ){
@@ -168,17 +173,25 @@ $( document ).ready( function(){
             if( is_show_date && i === show_date ){
                 div.addClass( 'current' );
                 if( flag ){
-                    var day = search.unpack(search.findGreaterNow()).d
-                    drawContent([ new Date(y , m , i), data.years[ y ].months[ m ].days[ i ].lectures ]);
+                    var sd = search.findGreaterNow();
+                    if( !!sd ){
+                        var d = search.unpack( sd );
+                        if( !!d.d ){
+                            drawContent([ new Date(d.y, d.m, d.d), data.years[ d.y ].months[ d.m ].days[ d.d ].lectures ]);
+                        }
+                    } else {
+                            $( '.b-day' ).html( 'Больше нет лекций' )
+                                            
                     flag = false;
+                    }
                 }
             }
 
             if( data.years && data.years[ y ] && data.years[ y ].months && data.years[ y ].months[ m ] && data.years[ y ].months[ m ].days[ i ]){
                 var day = data.years[ y ].months[ m ].days[ i ];
                 div.addClass( 'i-draw-content' );
-                $( div ).data( 'dateLecture', [ new Date(y , m , i), data.years[ y ].months[ m ].days[ i ].lectures ]);
-                setMark( $( div ).get(0), day[ 'decoration' ] );
+                $( div ).data( 'dateLecture', [ new Date(y , m , i), day.lectures ]);
+                setMark( $( div ).get(0), day.decoration );
             }
             cal.append( div );
         }
@@ -200,6 +213,7 @@ $( document ).ready( function(){
     }
 
     function drawLectureList ( y, m ){
+        $( '#print' ).show();
         $( '.b-search-content' ).html( '' )
         var blist = $( '.b-list-lecture')
 
@@ -223,7 +237,7 @@ $( document ).ready( function(){
                     case 'red':
                         title_text = 'перенесено';
                         break;
-                    case 'cansel':
+                    case 'cancel':
                         title_text = 'отменено';
                         break;
                     default:
@@ -236,6 +250,7 @@ $( document ).ready( function(){
     }
 
     function drawContent( dateLecture ){
+        $( '#print' ).show();
         $( '.b-search-content' ).html( '' )
         var date = dateLecture[ 0 ];
         var bdiv = $( '.b-day' ).html( '' )
@@ -252,9 +267,10 @@ $( document ).ready( function(){
         var list_lectures = $( '.e-day-list' ).html( '' );
         var list_lector = $( '.e-lector-list' ).html( '' );
 
+        var id = ['l', date.getDate(), date.getMonth(), date.getFullYear()].join('_');
         $.each( dateLecture[ 1 ], function(){
-            var p = $( '<p></p>' ).text( this.time ).appendTo( list_lectures );
-            $( '<span></span>' ).addClass( !!this.description ? 'link i-draw-list-block' : 'i-draw-list-block' ).text( this.caption ).appendTo( p ).data( 'lecture', this );
+            var p = $( '<p></p>' ).text( this.time ).addClass( this.history === 'cancel' ?'cancel':'').appendTo( list_lectures );
+            $( '<span></span>' ).addClass( !!this.description ? 'link i-draw-list-block' : 'i-draw-list-block' ).text( this.caption ).data( 'lecture', this ).attr( 'id', id ).appendTo( p );
             var span = $( '<span></span>' ).addClass( !!this.author.link ? 'link' : '' ).text( this.author.name ).data( 'link' , this.author.link);
             $( '<p></p>' ).append( span ).appendTo( list_lector );
         });
@@ -265,7 +281,7 @@ $( document ).ready( function(){
     function drawLectureBody( data ){
         var blog_lecture = $( '.b-lecture' ).html( '' ).css( 'display', 'none');
 
-        $( '<div></div>' ).addClass( 'b-lecture-title' ).text( data.caption ).appendTo( blog_lecture );
+        $( '<div></div>' ).addClass( 'b-lecture-title' ).addClass( data.history === 'cancel' ?'cancel':'').text( data.caption ).appendTo( blog_lecture );
         $( '<div></div>' ).addClass( 'b-lecture-autor' ).text( data.author.name ).appendTo( blog_lecture );
         $( '<div></div>' ).addClass( 'b-lecture-content' ).html( (!!data.description)?data.description:'' ).appendTo( blog_lecture );
         if( !!data.presentation ){
@@ -289,17 +305,20 @@ $( document ).ready( function(){
 
     //события
     $('.b-page_main_tb_r').on('click', '.i-draw-content', function(){
-        drawContent( $.data( $(this).get(0), 'dateLecture' ));
+            drawContent( $(this).data( 'dateLecture' ));
     });
     $('.b-page_main_tb_l').on('click', '.i-draw-list-block', function(){
-        drawLectureBody( $.data( $(this).get(0), 'lecture' ));
+        var d = $(this).data( 'lecture' )
+        //if( d.history !== 'cancel' ){
+            drawLectureBody( $(this).data( 'lecture' ));
+        //}
     });
     $('.b-list-lecture').on('click', 'p', function(){
         $(this).parent().prev('.i-draw-content').click();
         $('.b-page_main_tb_l .i-draw-list-block').eq( $(this).parent().find('p').index(this)).click();
     });
     $('.e-lector-list').on('click', '.link', function(){
-        window.open($.data( $(this).get(0), 'link' ));
+        window.open( $(this).data('link' ));
     });
 
 //});

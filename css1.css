@@ -29,11 +29,13 @@ table td {
 .link:hover { border-bottom:1px dotted #888 !important;}
 
 .b-page_main_tb { width: 800px; margin: 0 auto; height: 570px;}
-.b-page_main_tb_l { width: 520px; vertical-align: top; text-align: left;padding: 15px 0 0 30px;}
+.b-page_main_tb_l { position: relative; width: 520px; vertical-align: top; text-align: left;padding: 15px 0 0 30px;}
 .b-page_main_tb_r { width: 235px; vertical-align: top; text-align: left; background-color: #d6f3f8; padding: 15px 0 0 15px; }
 
 .b-page_main_tb_l table{ height: 10px;}
-.b-page_main_tb_l { position: relative; }
+.b-page_main_tb_l label { width: 100px; display: inline-block; }
+.b-page_main_tb_l div.formLine { margin: 10px 0;}
+
 
 .w320{ width: 320px;}
 <!-- -->
@@ -153,9 +155,10 @@ table td {
     padding: 0;
     border: 0;
 }
-.calendar div.orange {
-    border-left: 6px solid orange;
+.calendar div.blue {
+    border-left: 6px solid blue;
     border-bottom: 6px solid transparent;
+    background-color: transparent;
 }
 .calendar div.orange {
     border-left: 6px solid orange;
@@ -165,6 +168,7 @@ table td {
 .calendar div.yellow {
     border-left: 6px solid yellow;
     border-bottom: 6px solid transparent;
+    background-color: transparent;
 }
 <!-- -->
 .b-list-lecture{
@@ -192,7 +196,7 @@ table td {
 .b-list-lecture-list p.red span.time {
     color: red;
 }
-.b-list-lecture-list p.cansel span {
+.b-list-lecture-list p.cancel span , p.cancel , .b-lecture .cancel{
     text-decoration: line-through;
 }
 .b-list-lecture-list p span.content {
@@ -271,3 +275,15 @@ div.b-print div{ display: none; }
 <!-- -->
 <!-- -->
 <!-- -->
+#del {
+    background: -webkit-linear-gradient(top, #bc2697, #000);
+    padding: 5px;
+    color: white;
+    border-radius: 3px;
+    margin-right: 20px; 
+}
+#save {
+    background: -webkit-linear-gradient(top, #fad62d, #fff);   
+    padding: 10px 20px;
+    border-radius: 3px;
+}

@@ -20,7 +20,7 @@ var calendar = {
                                              'Итак, первая лекция — «Общий цикл разработки»',
                                     'presentation': 'http://yadi.sk/d/VDsJ4ZUBiq6u',
                                     'video': [ null, null ],
-                                    'history': 'orange'
+                                    'history': 'red'
                                 }, {
                                     'time': '13:00',
                                     'caption': 'Системы ведения задач',
@@ -264,7 +264,7 @@ var calendar = {
                                     'description': '',
                                     'presentation': '',
                                     'video': [ null, null ],
-                                    'history': 'cansel'
+                                    'history': 'cancel'
                                 }]
                             },
                             '4': {
