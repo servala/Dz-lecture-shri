@@ -9,6 +9,7 @@ body {
     font-size: 11px;
     height: 100%;
     color: black;
+    background: url("1.jpg") no-repeat;
 }
 table{
     border: 0;
@@ -27,11 +28,12 @@ table td {
 .link{ border-bottom:1px dotted black; cursor: pointer;}
 .link:hover { border-bottom:1px dotted #888 !important;}
 
-.b-page_main_tb { width: 800px; margin: 0 auto; height: 570px; border: 1px solid red;}
+.b-page_main_tb { width: 800px; margin: 0 auto; height: 570px;}
 .b-page_main_tb_l { width: 520px; vertical-align: top; text-align: left;padding: 15px 0 0 30px;}
 .b-page_main_tb_r { width: 235px; vertical-align: top; text-align: left; background-color: #d6f3f8; padding: 15px 0 0 15px; }
 
 .b-page_main_tb_l table{ height: 10px;}
+.b-page_main_tb_l { position: relative; }
 
 .w320{ width: 320px;}
 <!-- -->
@@ -222,19 +224,21 @@ table td {
     top: 0;
     left: 0;
 }
-.search {
+.b-search {
     position: relative;
     background: white;
     border-radius: 3px;
     width: 225px;
+    padding: 0 3px 0 0;
 }
-.search input {
-    border: 0;
+.b-search input.e-text {
+    border:0;
     outline: none;
-    width: 205px;
-    padding-left: 3px;
+    width: 200px;
+    padding-left: 0px;
+    margin: 0 0 0 5px;
 }
-.search span {
+.b-search span {
     position: absolute;
     top: 0;
     right: 3px;
@@ -242,7 +246,28 @@ table td {
     cursor: pointer;
     color: silver;
 }
-<!-- --> <!-- -->
+.b-search-content-title{
+    margin: 10px 0;
+    font-size:18px;
+    color: #48bf31;
+
+}
+.b-search-list-final{
+    margin: 5px 0;
+    font-size: 13px;
+}
+.e-button{ height: 10px; width: 10px; cursor: pointer;}
+<!-- -->
+.b-print{
+    cursor: pointer;
+    height: 10px;
+    width: 10px;
+    background-image: url('print.gif');
+    float: right;
+    margin-right: 15px;
+}
+div.b-print div{ display: none; }
+<!-- -->
 <!-- -->
 <!-- -->
 <!-- -->

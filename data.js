@@ -210,7 +210,7 @@ var calendar = {
                                         'name': 'Михаил Давыдов',
                                         'link': 'http://davydov-mikhail.ya.ru/'
                                     },
-                                    'description': null,
+                                    'description': '',
                                     'video': [ null,null ],
                                     'history': null
                                 }, {
@@ -287,7 +287,7 @@ var calendar = {
                                         'name': 'Михаил Корепанов',
                                         'link': null
                                     },
-                                    'description': null,
+                                    'description': '',
                                     'presentation': 'http://yadi.sk/d/1EjnM84h01plG',
                                     'video': [ null, null ],
                                     'history': null
@@ -313,7 +313,7 @@ var calendar = {
                                         'name': 'Михаил Трощев',
                                         'link': 'http://clubs.ya.ru/4611686018427468886/replies.xml?item_no=77'
                                     },
-                                    'description': null,
+                                    'description': '',
                                     'presentation': 'http://yadi.sk/d/1XZK0I1a05xaK',
                                     'video': [ null, null ],
                                     'history': null
@@ -339,7 +339,7 @@ var calendar = {
                                         'name': 'Алексей Бережной',
                                         'link': null
                                     },
-                                    'description': null,
+                                    'description': '',
                                     'presentation': 'http://yadi.sk/d/4zPgYu1V06nAc',
                                     'video': [ null, null ],
                                     'history': null
@@ -354,7 +354,7 @@ var calendar = {
                                         'name': 'Владимир Варанкин',
                                         'link': null
                                     },
-                                    'description': null,
+                                    'description': '',
                                     'presentation': null,
                                     'video': [ null, null ],
                                     'history': null
@@ -369,7 +369,7 @@ var calendar = {
                                         'name': 'Сергей Бережной',
                                         'link': 'http://clubs.ya.ru/4611686018427468886/replies.xml?item_no=89'
                                     },
-                                    'description': null,
+                                    'description': '',
                                     'presentation': null,
                                     'video': [ null, null ],
                                     'history': null
@@ -380,7 +380,7 @@ var calendar = {
                                         'name': 'Константин Горский',
                                         'link': null
                                     },
-                                    'description': null,
+                                    'description': '',
                                     'presentation': null,
                                     'video': [ null, null ],
                                     'history': null
@@ -391,7 +391,7 @@ var calendar = {
                                         'name': 'Михаил Трошев',
                                         'link': 'http://clubs.ya.ru/4611686018427468886/replies.xml?item_no=77'
                                     },
-                                    'description': null,
+                                    'description': '',
                                     'presentation': null,
                                     'video': [ null, null ],
                                     'history': null
