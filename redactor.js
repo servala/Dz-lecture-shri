@@ -21,9 +21,16 @@ $(document).ready(function(){
 			return false;
 		}
 	}, '.i-draw-list-block');
+    $('.b-redactor-cancel').on( 'click', function(){
+        $( '.b-page_main_tb_l' ).html( backup );
+        backup = '';
+    })
 });
-
+var backup = '';
 function drawRedactor( d, m, y, edit ){
+	backup = $( '.b-page_main_tb_l' ).html();
+    $('.b-redactor-cancel').show();
+
 	$( '.b-search-content, .e-day-list, .e-lector-list, .b-lecture, .b-search-content' ).html( '' );
     $( '.b-print' ).hide();
     var bdiv = $( '.b-day' ).html( '' );
@@ -71,7 +78,7 @@ function drawRedactor( d, m, y, edit ){
 	}
 	$( '#save' ).click( function(){
 		if( verifyForm() ){
-			alert( 'Поля заполнили да, в натуре!' );
+			alert( 'Многоуважаемый, заполните поля со *' );
 		}
 		else {
 			storyLecture( d, m, y, edit );
