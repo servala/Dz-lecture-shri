@@ -21,16 +21,10 @@ $(document).ready(function(){
 			return false;
 		}
 	}, '.i-draw-list-block');
-    $('.b-redactor-cancel').on( 'click', function(){
-        $( '.b-page_main_tb_l' ).html( backup );
-        backup = '';
-    })
 });
-var backup = '';
-function drawRedactor( d, m, y, edit ){
-	backup = $( '.b-page_main_tb_l' ).html();
-    $('.b-redactor-cancel').show();
 
+function drawRedactor( d, m, y, edit ){
+    $('.b-redactor-cancel').show();
 	$( '.b-search-content, .e-day-list, .e-lector-list, .b-lecture, .b-search-content' ).html( '' );
     $( '.b-print' ).hide();
     var bdiv = $( '.b-day' ).html( '' );
@@ -64,7 +58,7 @@ function drawRedactor( d, m, y, edit ){
 		$( '#del' ).click( function(){
 			deleteLecture( d, m, y, edit );
 		});
-		console.log( edit )
+        // full filds
 		$( '#caption' ).val( edit.caption );
 		$( '#ltype' ).val( edit.history );
 		$( '#description' ).val( edit.description );
@@ -135,3 +129,6 @@ function storyLecture( d, m, y, edit ){
  	drawLectureBody( edit );   
  	$( '#print' ).show();     
 }
+$('.b-redactor-cancel').on( 'click', function(){
+    drawContent( backup );
+})

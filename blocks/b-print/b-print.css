@@ -1,0 +1,9 @@
+.b-print{
+    cursor: pointer;
+    height: 10px;
+    width: 10px;
+    background-image: url('print.gif');
+    float: right;
+    margin-right: 15px;
+}
+div.b-print div{ display: none; }

@@ -1,0 +1,9 @@
+.b-lecture{
+    margin-top: 50px; font-size: 14px;
+}
+.b-lecture-title{
+    font-size: 20px;
+}
+.b-lecture-autor{ color: red; margin-top: 3px;}
+.b-lecture-content{ padding: 25px 10px 0 40px;}
+.b-lecture-link{ padding: 20px 40px 0 0px; font-size: 10px; float: left;}

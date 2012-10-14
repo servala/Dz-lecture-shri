@@ -3,6 +3,7 @@ $( document ).ready( function(){
 });
 function toLS( data ){
     localStorage.calendar = JSON.stringify( data );
+    search.reset();
 }
 function fromLS(){
     if ( !localStorage.calendar ){
@@ -15,60 +16,6 @@ function fromLS(){
     var lectures = data.years[2012].months[8].days;
     var flag = true;
 
-    var search = {
-        collection: [],
-        get: function(){
-            if( !this.collection.length ){
-                var c = this.collection;
-                $.each( data.years, function(y){
-                    $.each( this.months, function(m){
-                        $.each( this.days, function(d){
-                            $.each( this.lectures, function(i){
-                                if(( d + '' ).length === 1 ) d = '0' + d;
-                                if(( m + '' ).length === 1 ) m = '0' + m;
-                                c.push([[ y, m, d ].join( '-' ), this.time, this.caption, this.author.name, this.description].join( ' ' ));
-                            });
-                        });
-                    });
-                });
-            }
-            return this.collection.sort( function( a, b ){
-                return a < b ? 1 : -1;
-            });
-        },
-        unpack: function( s ){
-            var a = s.split(' '), b = a[ 0 ].split( '-' );
-            return {
-                d: parseInt( b[ 2 ], 10 ),
-                m: parseInt( b[ 1 ], 10 ),
-                y: b[ 0 ],
-                time: a[ 1 ],
-                word: a[ 2 ]
-            }
-        },
-        findGreaterNow: function() {
-            var d = new Date();
-            var day = d.getDate();
-            var m = d.getMonth();
-            if(( day + '' ).length === 1 ) day = '0' + day;
-            if(( m + '' ).length === 1 ) m = '0' + m;
-            var sd = [ d.getFullYear(), m, day ].join('-');
-            var c = this.get();
-            for( var i = 0, l = c.length - 1; i < l; i++ ){
-                if(c[ i ] < sd) break;
-            }
-            return c[ i - 1 ] || '';
-        },
-        findWord: function( word ){
-            var c = this.get(), a = [];
-            for( var i = 0, l = c.length; i < l; i++ ){
-                if( c[ i ].indexOf( word ) === -1 ){
-                    a.push( this.unpack( c[ i ]));
-                }
-            }
-            return a;
-        }
-    }
     var week_days = {
         1: [ 'пн','понедельник' ],
         2: [ 'вт','вторник' ],
@@ -112,7 +59,8 @@ function fromLS(){
         is_current_month: function(m, y){
             return m === this.now.getMonth() && y === this.now.getFullYear();
         }
-    };
+    },
+    backup = '';
 
     var cur_date = date_worker.get_now_day();
     var cur_year = cur_date.getFullYear();
@@ -180,10 +128,9 @@ function fromLS(){
                             drawContent([ new Date(d.y, d.m, d.d), data.years[ d.y ].months[ d.m ].days[ d.d ].lectures ]);
                         }
                     } else {
-                            $( '.b-day' ).html( 'Больше нет лекций' )
-                                            
-                    flag = false;
+                        drawContent( null )
                     }
+                    flag =false;
                 }
             }
 
@@ -212,6 +159,7 @@ function fromLS(){
         }
     }
 
+    // right-list
     function drawLectureList ( y, m ){
         $( '#print' ).show();
         $( '.b-search-content' ).html( '' )
@@ -250,32 +198,38 @@ function fromLS(){
     }
 
     function drawContent( dateLecture ){
-        $( '#print' ).show();
-        $( '.b-search-content' ).html( '' )
-        var date = dateLecture[ 0 ];
-        var bdiv = $( '.b-day' ).html( '' )
-        $( '.b-day-head' ).css( 'display' ,'none');
+        backup = dateLecture;
+        if( !dateLecture ){
+            $( '.b-day' ).html( 'Больше нет лекций' );
+        }else{
+            $( '.b-print' ).show();
+            $( '.b-redactor-cancel' ).hide();
+            $( '.b-search-content' ).html( '' );
+            var date = dateLecture[ 0 ];
+            var bdiv = $( '.b-day' ).html( '' )
+            $( '.b-page-head' ).css( 'display' ,'none');
 
-        var week_day = date.getDay();
-        if( !week_day ) week_day =7;
-        $( '<div></div>' ).addClass( 'b-day-title' )
-            .append( $( '<span></span>' ).text( date.getDate() + ' ' + months[ date.getMonth()][ 1 ] + ' ' + date.getFullYear()))
-            .append( week_days[ week_day ][ 1 ])
-            .appendTo( bdiv );
+            var week_day = date.getDay();
+            if( !week_day ) week_day =7;
+            $( '<div></div>' ).addClass( 'b-day-title' )
+                .append( $( '<span></span>' ).text( date.getDate() + ' ' + months[ date.getMonth()][ 1 ] + ' ' + date.getFullYear()))
+                .append( week_days[ week_day ][ 1 ])
+                .appendTo( bdiv );
 
-        //lectures  we use if for check 'current'
-        var list_lectures = $( '.e-day-list' ).html( '' );
-        var list_lector = $( '.e-lector-list' ).html( '' );
+            //lectures  we use for checked 'current'
+            var list_lectures = $( '.e-day-list' ).html( '' );
+            var list_lector = $( '.e-lector-list' ).html( '' );
 
-        var id = ['l', date.getDate(), date.getMonth(), date.getFullYear()].join('_');
-        $.each( dateLecture[ 1 ], function(){
-            var p = $( '<p></p>' ).text( this.time ).addClass( this.history === 'cancel' ?'cancel':'').appendTo( list_lectures );
-            $( '<span></span>' ).addClass( !!this.description ? 'link i-draw-list-block' : 'i-draw-list-block' ).text( this.caption ).data( 'lecture', this ).attr( 'id', id ).appendTo( p );
-            var span = $( '<span></span>' ).addClass( !!this.author.link ? 'link' : '' ).text( this.author.name ).data( 'link' , this.author.link);
-            $( '<p></p>' ).append( span ).appendTo( list_lector );
-        });
-        $( '.b-day-head' ).fadeIn(1000);
-        $( '.b-lecture' ).html( '' );
+            var id = ['l', date.getDate(), date.getMonth(), date.getFullYear()].join('_');
+            $.each( dateLecture[ 1 ], function(){
+                var p = $( '<p></p>' ).text( this.time ).addClass( this.history === 'cancel' ?'cancel':'').appendTo( list_lectures );
+                $( '<span></span>' ).addClass( !!this.description ? 'link i-draw-list-block' : 'i-draw-list-block' ).text( this.caption ).data( 'lecture', this ).attr( 'id', id ).appendTo( p );
+                var span = $( '<span></span>' ).addClass( !!this.author.link ? 'link' : '' ).text( this.author.name ).data( 'link' , this.author.link);
+                $( '<p></p>' ).append( span ).appendTo( list_lector );
+            });
+            $( '.b-page-head' ).fadeIn(1000);
+            $( '.b-lecture' ).html( '' );
+        }
     }
 
     function drawLectureBody( data ){
@@ -296,6 +250,7 @@ function fromLS(){
         blog_lecture.fadeIn(1000);
     }
 
+    //travel in calendar
     $( '#mon_p' ).live( 'click', function(){
         drawCalendar( cur_month + 1, cur_year );
     });

@@ -1,0 +1,32 @@
+.b-search {
+    position: relative;
+    background: white;
+    border-radius: 3px;
+    width: 225px;
+    padding: 0 3px 0 0;
+}
+.b-search input.e-text {
+    border:0;
+    outline: none;
+    width: 200px;
+    padding-left: 0px;
+    margin: 0 0 0 5px;
+}
+.b-search span {
+    position: absolute;
+    top: 0;
+    right: 3px;
+    font-size: 16px;
+    cursor: pointer;
+    color: silver;
+}
+.b-search-content-title{
+    margin: 10px 0;
+    font-size:18px;
+    color: #48bf31;
+
+}
+.b-search-list-final{
+    margin: 5px 0;
+    font-size: 13px;
+}

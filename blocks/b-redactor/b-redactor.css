@@ -1,0 +1,27 @@
+.b-redactor-del {
+    background: -webkit-linear-gradient(top, #bc2697, #000);
+    background: -moz-linear-gradient(top,  #bc2697,  #000);
+    background: -ms-linear-gradient(top,  #bc2697,  #000);
+    background: -o-linear-gradient(top,  #bc2697,  #000);
+    padding: 5px;
+    color: white;
+    border-radius: 3px;
+    margin-right: 20px;
+}
+.b-redactor-save {
+    background: -webkit-linear-gradient(top, #fad62d, #fff);
+    background: -moz-linear-gradient(top,  #fad62d,  #fff);
+    background: -ms-linear-gradient(top,  #fad62d,  #fff);
+    background: -o-linear-gradient(top,  #fad62d,  #fff);
+    padding: 10px 20px;
+    border-radius: 3px;
+}
+.b-redactor-cancel{
+    cursor: pointer;
+    height: 10px;
+    width: 10px;
+    background-image: url('cancel.gif');
+    float: right;
+    margin-right: 15px;
+    display: none;
+}

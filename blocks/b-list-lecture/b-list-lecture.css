@@ -1,0 +1,54 @@
+.b-list-lecture{
+    color: #2c8ab6;
+    font-size: 14px;
+    margin: 10px 0 20px 0;
+}
+.b-list-lecture-title {
+    margin: 15px 0 0 0px;
+    width: 205px;
+    border-bottom: 1px solid #2c8ab6;
+}
+.b-list-lecture-list{
+    font-size: 11px;
+}
+.b-list-lecture-list p{
+    margin: 5px 0 0 20px;
+    width: 185px;
+    position: relative;
+    height: 15px;
+}
+.b-list-lecture-list p.red span.time {
+    color: red;
+}
+.b-list-lecture-list p.cancel span , p.cancel , .b-lecture .cancel{
+    text-decoration: line-through;
+}
+.b-list-lecture-list p span.content {
+    color: black;
+    width: 140px;
+    height: 18px;
+    position: absolute;
+    padding-left: 50px;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+}
+.b-list-lecture-list p span.content:hover {
+    width: auto;
+    overflow: auto;
+    background-color: #D6F3F8;
+    border-radius: 3px;
+    padding-right: 5px;
+}
+.b-list-lecture-list p span span {
+    white-space: pre;
+    height: 13px;
+}
+.b-list-lecture-list p span.time {
+    width: 45px;
+    position: absolute;
+    top: 0;
+    left: 0;
+}

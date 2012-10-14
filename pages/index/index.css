@@ -1,0 +1,9 @@
+@import url(../../blocks/b-page/b-page.css);
+@import url(../../blocks/b-calendar/b-calendar.css);
+@import url(../../blocks/b-list-lecture/b-list-lecture.css);
+@import url(../../blocks/b-lecture/b-lecture.css);
+@import url(../../blocks/b-page-head/__e-day-list/b-page-head__e-day-list.css);
+@import url(../../blocks/b-page-head/__e-lector-list/b-page-head__e-lector-list.css);
+@import url(../../blocks/b-search/b-search.css);
+@import url(../../blocks/b-redactor/b-redactor.css);
+@import url(../../blocks/b-print/b-print.css);

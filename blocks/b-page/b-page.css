@@ -1,0 +1,40 @@
+html{
+    overflow-y: scroll;
+    height: 100%;
+}
+body {
+    padding: 0;
+    margin: 0;
+    font-family: Tahoma, Verdana, sans-serif;
+    font-size: 11px;
+    height: 100%;
+    color: black;
+}
+table{
+    border: 0;
+    border-collapse: collapse;
+    background-color: #ffffff;
+    height: auto;
+    height: 100%;
+}
+table td {
+    padding: 0px;
+    font-family: Verdana, sans-serif;
+    font-size: 11px;
+}
+.clear{ clear:both;}
+.drawContent{ cursor:pointer;}
+.link{ border-bottom:1px dotted black; cursor: pointer;}
+.link:hover { border-bottom:1px dotted #888 !important;}
+
+.b-page_main_tb { width: 800px; margin: 0 auto; height: 570px;}
+.b-page_main_tb_l { position: relative; width: 520px; vertical-align: top; text-align: left;padding: 15px 0 0 30px;}
+.b-page_main_tb_r { width: 235px; vertical-align: top; text-align: left; background-color: #d6f3f8; padding: 15px 0 0 15px; }
+
+.b-page_main_tb_l table{ height: 10px;}
+.b-page_main_tb_l label { width: 100px; display: inline-block; }
+.b-page_main_tb_l div.formLine { margin: 10px 0;}
+
+.w320{ width: 320px;}
+.e-button{ height: 10px; width: 10px; cursor: pointer;}
+.b-page{ background: url("owl.gif") no-repeat; width: 1012px; margin: 0 auto;}
